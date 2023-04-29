@@ -2,6 +2,8 @@ import express from "express";
 import morgan from "morgan";
 //import rutas
 import pacientesRoutes from "./routes/pacientes.routes";
+import dentistasRoutes from "./routes/dentistas.routes";
+import citasRoutes from "./routes/citas.routes";
 
 
 const app=express();
@@ -15,6 +17,8 @@ app.use(express.json()); //entender y procesar jsons
 
 //rutas
 app.use("/api/pacientes", pacientesRoutes);
+app.use("/api/dentistas", dentistasRoutes);
+app.use("/api/citas", citasRoutes);
 
 
 export default app;
