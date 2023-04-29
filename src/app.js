@@ -8,7 +8,7 @@ app.set("port", 4000);
 
 //middlewares (funcion intermedia)
 app.use(morgan("dev")); //listado peticiones
-app.use(express.jason()); //entender y procesar jsons
+app.use(express.json()); //entender y procesar jsons
 
 
 export default app;
