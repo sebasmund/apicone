@@ -13,9 +13,9 @@ const getCitas = async (req, res) => {
 
 const getCita = async (req, res) => {
     try {
-        const { id_cita } = req.params;
+        const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT id_cita, id_paciente, id_dentista, fecha_hora WHERE id_cita = ?", id_cita);
+        const result = await connection.query("SELECT * FROM citas WHERE id_cita = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -43,16 +43,16 @@ const addCita = async (req, res) => {
 
 const updateCita = async (req, res) => {
     try {
-        const { id_cita } = req.params;
+        const { id } = req.params;
         const { id_paciente, id_dentista, fecha_hora } = req.body;
 
-        if (id_cita === undefined || id_paciente === undefined || id_dentista === undefined || fecha_hora === undefined) {
+        if (id === undefined || id_paciente === undefined || id_dentista === undefined || fecha_hora === undefined) {
             res.status(400).json({ message: "Solicitud invalida. Rellene todos los campos." });
         }
 
         const cita = { id_paciente, id_dentista, fecha_hora };
         const connection = await getConnection();
-        const result = await connection.query("UPDATE citas SET ? WHERE id_cita = ?", [cita, id_cita]);
+        const result = await connection.query("UPDATE citas SET ? WHERE id_cita = ?", [cita, id]);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -62,9 +62,9 @@ const updateCita = async (req, res) => {
 
 const deleteCita = async (req, res) => {
     try {
-        const { id_cita } = req.params;
+        const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("DELETE FROM citas WHERE id = ?", id_cita);
+        const result = await connection.query("DELETE FROM citas WHERE id_cita = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);

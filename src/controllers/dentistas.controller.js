@@ -13,9 +13,9 @@ const getDentistas = async (req, res) => {
 
 const getDentista = async (req, res) => {
     try {
-        const { id_dentista } = req.params;
+        const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT id_dentista, nombre, apellido, telefono WHERE id_dentista = ?", id_dentista);
+        const result = await connection.query("SELECT * FROM dentistas WHERE id_dentista = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -43,16 +43,16 @@ const addDentista = async (req, res) => {
 
 const updateDentista = async (req, res) => {
     try {
-        const { id_dentista } = req.params;
+        const { id } = req.params;
         const { nombre, apellido, telefono } = req.body;
 
-        if (id_dentista === undefined || nombre === undefined || apellido === undefined || telefono === undefined) {
+        if (id === undefined || nombre === undefined || apellido === undefined || telefono === undefined) {
             res.status(400).json({ message: "Solicitud invalida. Rellene todos los campos." });
         }
 
         const dentista = { nombre, apellido, telefono };
         const connection = await getConnection();
-        const result = await connection.query("UPDATE dentistas SET ? WHERE id_dentista = ?", [dentista, id_dentista]);
+        const result = await connection.query("UPDATE dentistas SET ? WHERE id_dentista = ?", [dentista, id]);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -62,9 +62,9 @@ const updateDentista = async (req, res) => {
 
 const deleteDentista = async (req, res) => {
     try {
-        const { id_dentista } = req.params;
+        const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("DELETE FROM dentistas WHERE id = ?", id_dentista);
+        const result = await connection.query("DELETE FROM dentistas WHERE id_dentista = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
