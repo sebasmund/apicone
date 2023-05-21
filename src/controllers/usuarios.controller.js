@@ -15,7 +15,7 @@ const getUsuario = async (req, res) => {
     try {
         const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT * FROM usuarios WHERE id_usuarios= ?", id);
+        const result = await connection.query("SELECT * FROM usuarios WHERE id_usuarios = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -25,15 +25,15 @@ const getUsuario = async (req, res) => {
 
 const addUsuario = async (req, res) => {
     try {
-        const { usuario, clave } = req.body;
+        const { user, clave } = req.body;
 
-        if (usuario === undefined || clave === undefined) {
+        if (user === undefined || clave === undefined) {
             res.status(400).json({ message: "Solicitud invalida. Rellene todos los campos." });
         }
 
-        const usuario1 = { usuario, clave };
+        const users = { user, clave };
         const connection = await getConnection();
-        await connection.query("INSERT INTO usuarios SET ?", usuario1);
+        await connection.query("INSERT INTO usuarios SET ?", users);
         res.json({ message: "Usuario añadido de manera exitosa" });
     } catch (error) {
         res.status(500);
@@ -44,15 +44,15 @@ const addUsuario = async (req, res) => {
 const updateUsuario = async (req, res) => {
     try {
         const { id } = req.params;
-        const { usuario, clave} = req.body;
+        const { user, clave } = req.body;
 
-        if (id === undefined || usuario === undefined || clave === undefined) {
+        if (id === undefined || user === undefined ||clave === undefined) {
             res.status(400).json({ message: "Solicitud invalida. Rellene todos los campos." });
         }
 
-        const usuario2 = { usuario, clave };
+        const users = {user, clave };
         const connection = await getConnection();
-        const result = await connection.query("UPDATE usuarios SET ? WHERE id_usuarios = ?", [usuario2, id]);
+        const result = await connection.query("UPDATE usuarios SET ? WHERE id_usuarios= ?", [users, id]);
         res.json(result);
     } catch (error) {
         res.status(500);
