@@ -26,7 +26,11 @@ CREATE TABLE citas (
   FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
   FOREIGN KEY (id_dentista) REFERENCES dentistas(id_dentista)
 );
-
+CREATE TABLE usuarios (
+  id_usuarios INT PRIMARY KEY AUTO_INCREMENT,
+  usuario VARCHAR(50) NOT NULL,
+  clave VARCHAR(50) NOT NULL
+);
 #Inserción de datos de prueba
 INSERT INTO pacientes (nombre, apellido, telefono, correo_electronico, cedula)
 VALUES 
@@ -70,6 +74,11 @@ VALUES
   (3, 4, '2023-05-19 15:00:00'),
   (2, 5, '2023-05-20 16:00:00'),
   (6, 1, '2023-05-21 17:00:00');
+
+INSERT INTO usuarios (usuario, clave)
+VALUES 
+  ('sebasmund'," sairo2003"),
+  ('miguelgit', "pato2004");
 
 select * from pacientes
 

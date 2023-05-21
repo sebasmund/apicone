@@ -4,6 +4,7 @@ import morgan from "morgan";
 import pacientesRoutes from "./routes/pacientes.routes";
 import dentistasRoutes from "./routes/dentistas.routes";
 import citasRoutes from "./routes/citas.routes";
+import usuariosRoutes from ".routes/usuarios.routes";
 
 
 const app=express();
@@ -19,6 +20,7 @@ app.use(express.json()); //entender y procesar jsons
 app.use("/api/pacientes", pacientesRoutes);
 app.use("/api/dentistas", dentistasRoutes);
 app.use("/api/citas", citasRoutes);
+app.use("/api/usuarios", usuariosRoutes);
 
 
 export default app;
