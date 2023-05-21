@@ -1,6 +1,6 @@
 import { getConnection } from "./../database/database";
 
-const getUsuarios= async (req, res) => {
+const getUsuarios = async (req, res) => {
     try {
         const connection = await getConnection();
         const result = await connection.query("SELECT id_usuarios, usuario, clave FROM usuarios");
@@ -11,11 +11,11 @@ const getUsuarios= async (req, res) => {
     }
 };
 
-const getUsuario= async (req, res) => {
+const getUsuario = async (req, res) => {
     try {
-        const { id_usuarios } = req.params;
+        const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT * FROM usuarios WHERE id_usuarios = ?", id_usuarios);
+        const result = await connection.query("SELECT * FROM usuarios WHERE id_usuarios= ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -27,14 +27,14 @@ const addUsuario = async (req, res) => {
     try {
         const { usuario, clave } = req.body;
 
-        if (usuario=== undefined || clave === undefined) {
+        if (usuario === undefined || clave === undefined) {
             res.status(400).json({ message: "Solicitud invalida. Rellene todos los campos." });
         }
 
-        const usuarios = { usuario, clave };
+        const usuario1 = { usuario, clave };
         const connection = await getConnection();
-        await connection.query("INSERT INTO usuarios SET ?", usuarios);
-        res.json({ message: "Dentista añadido de manera exitosa" });
+        await connection.query("INSERT INTO usuarios SET ?", usuario1);
+        res.json({ message: "Usuario añadido de manera exitosa" });
     } catch (error) {
         res.status(500);
         res.send(error.message);
@@ -43,16 +43,16 @@ const addUsuario = async (req, res) => {
 
 const updateUsuario = async (req, res) => {
     try {
-        const { id_usuarios } = req.params;
-        const { usuario, clave } = req.body;
+        const { id } = req.params;
+        const { usuario, clave} = req.body;
 
-        if (id_usuarios === undefined || usuario === undefined ||clave === undefined) {
+        if (id === undefined || usuario === undefined || clave === undefined) {
             res.status(400).json({ message: "Solicitud invalida. Rellene todos los campos." });
         }
 
-        const usuarios = {usuario, clave };
+        const usuario2 = { usuario, clave };
         const connection = await getConnection();
-        const result = await connection.query("UPDATE usuarios SET ? WHERE id_usuarios= ?", [usuarios, id_usuarios]);
+        const result = await connection.query("UPDATE usuarios SET ? WHERE id_usuarios = ?", [usuario2, id]);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -60,11 +60,11 @@ const updateUsuario = async (req, res) => {
     }
 };
 
-const deleteUsario = async (req, res) => {
+const deleteUsuario = async (req, res) => {
     try {
-        const { id_usuarios } = req.params;
+        const { id } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("DELETE FROM usuarios WHERE id = ?", id_usuarios);
+        const result = await connection.query("DELETE FROM usuarios WHERE id_usuarios = ?", id);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -77,5 +77,5 @@ export const methods = {
     getUsuario,
     addUsuario,
     updateUsuario,
-    deleteUsario
+    deleteUsuario
 };

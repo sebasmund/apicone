@@ -4,7 +4,7 @@ import morgan from "morgan";
 import pacientesRoutes from "./routes/pacientes.routes";
 import dentistasRoutes from "./routes/dentistas.routes";
 import citasRoutes from "./routes/citas.routes";
-import usuariosRoutes from ".routes/usuarios.routes";
+import usuariosRoutes from "./routes/usuarios.routes";
 
 
 const app=express();
