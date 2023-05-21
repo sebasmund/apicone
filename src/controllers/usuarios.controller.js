@@ -15,7 +15,7 @@ const getUsuario= async (req, res) => {
     try {
         const { id_usuarios } = req.params;
         const connection = await getConnection();
-        const result = await connection.query("SELECT id_usuarios, usuario, clave WHERE id_usuario = ?", id_usuarios);
+        const result = await connection.query("SELECT * FROM usuarios WHERE id_usuarios = ?", id_usuarios);
         res.json(result);
     } catch (error) {
         res.status(500);
